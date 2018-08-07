@@ -88,7 +88,7 @@ bool Board::isValid(int choice[]) {
 int Board::checkBoard(int array[], char symbol) {
 	int row = array[0];
 	int col = array[1];
-	cout << "\n(" << array[0] + 1 << "," << array[1] + 1 << ")\n";
+	cout << "(" << array[0] + 1 << "," << array[1] + 1 << ")\n";
 
 	//CHECK THE COLUMN
 	int rowPos = row;

@@ -14,63 +14,95 @@
 using namespace std;
 
 void Computer::setMove() {
-	// X is my Symbol, O is enemy's symbol.
-	string threatList[] = {" XXXX ", " OOOO", "OOOO ",
-						   " OOO ", " XXX ", " XXX",
-						   "XXX ", " OOO", "OOO ", " XX", "XX " };
-	for (int i = 0; i < 11; i++)
-		findThreat(boardCopy, threatList[i]);
+	cout <<"\n\n" << symbol <<"'s MOVE: ";
+	string * threatList;
+	string  threatX[] = {" XXXX ", " XXXX", "XXXX ", " OOOO",
+						 "OOOO "," OOO ", "X XX", "O OO",
+						 " XXX ", " XXX", "XXX ", " OOO",
+						 "OOO ", " XX", "XX ", " X", "X ", "O"};
 
+	string  threatO[] = {" OOOO ", " OOOO", "OOOO ", " XXXX",
+						 "XXXX ", " XXX ", "O OO", "X XX",
+						 " OOO ", " OOO", "OOO ", " XXX",
+						 "XXX ", " OO", "OO ", " O", "O ", "X"};
+
+	symbol == 'X' ? threatList = threatX : threatList = threatO;
+	cout << "\nSTEP?\n";
+	cin.get();
+	for (int i = 0; i < 18; i++){
+	    for (int row = 0; row < moveSpace; row++) {
+	       for (int col = 0; col < moveSpace; col++) {
+	          if (searchThreat(boardCopy, row, col, threatList[i])){
+	        	  cout << "THREAT at (" << row + 1 << "," << col + 1 << ")\n";
+	        	  return;
+	          }
+	       }
+	    }
+	}
 	currentMove[0] = rand()%moveSpace;
 	currentMove[1] = rand()%moveSpace;
+
+
 }
 
 void Computer::findThreat(char ** board, string threat) {
-	    // Consider every point as starting point and search
-    // given word
-
-
     for (int row = 0; row < moveSpace; row++) {
        for (int col = 0; col < moveSpace; col++) {
           if (searchThreat(board, row, col, threat))
-             cout << "pattern found at " << row << ", " << col << endl;
+             break;
        }
     }
 }
 
-bool Computer::searchThreat(char ** board, int row, int col, string threat)
-{
-	int x[] = {  0, -1, -1, -1, 0, 1, 1,  1 };
-	int y[] = { -1, -1,  0,  1, 1, 1, 0, -1 };
+bool Computer::searchThreat(char ** board, int row, int col, string threat) {
+	int x[] = {  0, -1, -1, -1, 0, 1, 1,  1 };//same, up, up, up, same, down, down, down
+	int y[] = { -1, -1,  0,  1, 1, 1, 0, -1 };//left, left, same, right, right, right, same, left
 	int length = threat.length();
-    if (board[row][col] != threat[0]) {
-    	return false;
-    }
 
-    // Search word in all 8 directions starting from (row,col)
-    for (int dir = 0; dir < 8; dir++)
+		if (board[row][col] != threat[0]) {
+			return false;
+		}
+
+    //Check each direction as x,y coordinate.
+    for (int direction = 0; direction < 8; direction++)
     {
         // Initialize starting point for current direction
-        int k, rd = row + x[dir], cd = col + y[dir];
+        int count;
+		int rowPos = row + x[direction];
+		int colPos = col + y[direction];
 
         // First character is already checked, match remaining
         // characters
-        for (k = 1; k < length; k++)
+        for (count = 1; count < length; count++)
         {
             // If out of bound break
-            if (rd >= moveSpace || rd < 0 || cd >= moveSpace || cd < 0)
+            if (rowPos >= moveSpace || rowPos < 0 || colPos >= moveSpace || colPos < 0)
                 break;
 
             // If not matched,  break
-            if (board[rd][cd] != threat[k])
+            if (board[rowPos][colPos] != threat[count])
                 break;
 
             //  Moving in particular direction
-            rd += x[dir], cd += y[dir];
+            rowPos += x[direction], colPos += y[direction];
         }
 
-        if (k == length)
-            return true;
+        if (count == length) {
+        	if (threat == "X XX" || threat == "O OO") {
+        		currentMove[0] = row + x[direction];
+        		currentMove[1] = col + y[direction];
+        	}else if (board[row][col] == ' ') {
+        		currentMove[0] = row;
+        		currentMove[1] = col;
+        	} else if (board[rowPos][colPos] == ' ') {
+        		currentMove[0] = rowPos;
+        		currentMove[1] = colPos;
+        	} else {
+        		currentMove[0] = rand()%moveSpace;
+        		currentMove[1] = rand()%moveSpace;
+        	}
+        	return true;
+        }
     }
     return false;
 }

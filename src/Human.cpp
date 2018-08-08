@@ -13,9 +13,13 @@
 
 using namespace std;
 
+Human::Human(const char sym) : Player(sym){
+
+}
+
 void Human::setMove() {
+	cout <<"\n\n" << symbol <<"'s MOVE: ";
 	int row, col;
-	cout << "\nPlayer " << symbol << "'s turn.\n";
 	cout << "\nPlease choose a ROW followed by a COLUMN." << endl;
 	row = validInt("ROW: ") - 1;
 	col = validInt("COLUMN: ") - 1;

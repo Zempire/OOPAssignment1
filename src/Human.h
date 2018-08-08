@@ -14,13 +14,14 @@ using namespace std;
 
 class Human: public Player {
 public:
-	Human(){}
-	Human(const char sym)
-			: Player(sym)
-			  {
-		cout << "I AM HUMAN\n";
-		}
+	Human() {}
+	//Default Constructor, shouldn't ever be called.
+
+	Human(const char sym);
+	//Constructor we really want.
+
 	void setMove();
+	//Takes input from user to make a move.
 };
 
 

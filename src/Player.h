@@ -24,6 +24,7 @@ public:
 
 	int * getMove();
 	//Returns currentMove array.
+
 	void copyBoard(char ** board);
 	//Copies board into local memory.
 

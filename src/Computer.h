@@ -15,15 +15,17 @@ using namespace std;
 class Computer: public Player {
 public:
 	Computer(){}
-	Computer(const char sym, int boardSize)
-			: Player(sym)
-			  {
-		moveSpace = boardSize;
-		cout << "I AM COMPUTER\n";
-		}
+	//Default Constructor, shouldn't ever be called.
+
+	Computer(const char sym, int boardSize);
+	//Constructor we really want.
+
 	void setMove();
-	void findThreat(char ** board, string threat);
+	//Contains threatList and chooses move according to the list priority.
+
 	bool searchThreat(char ** board, int row, int col, string threat);
+	//Goes through all the threats checking in all possible directions
+	//and returns true if threat is found.
 
 private:
 	int moveSpace = 10;

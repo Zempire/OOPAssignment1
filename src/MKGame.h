@@ -38,9 +38,8 @@ public:
 		}
 	}
 
-	void run();
-	//
 	void play();
+
 	~MKGame(){
 		delete gameBoard;
 		delete * players;

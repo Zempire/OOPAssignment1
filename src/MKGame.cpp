@@ -19,6 +19,7 @@ void MKGame::play() {
 
 	while(!done) {
 		gameBoard->displayBoard();
+
 		//Give current player a copy of the board. Useful for Computer.
 		players[current]->copyBoard(gameBoard->getBoard());
 		players[current]->setMove();
@@ -28,13 +29,16 @@ void MKGame::play() {
 			players[current]->setMove();
 		}
 
+//		cout << "\nSTEP?\n"; //This is for tracking AI moves when Computer
+//		cin.get();			 //plays against itself.
+
 		gameBoard->placeStone(players[current]->getMove(), players[current]->getSymbol());
 		status = gameBoard->checkBoard(players[current]->getMove(), players[current]->getSymbol());
 		moveCount++;
 
 		if(status == 1) {
 			gameBoard->displayBoard();
-			cout << "\nPLAYER " << players[current]->getSymbol() << " WINS!!!\n\n";
+			cout << "\nPLAYER " << players[current]->getSymbol() << " WINS with ";
 			cout << moveCount << " moves.\n";
 			done = true;
 		} else if (moveCount == boardFull) {

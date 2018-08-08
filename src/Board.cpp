@@ -34,7 +34,6 @@ Board::Board(int size, int winCon)
 }
 
 Board::~Board() {
-	cout<<"Removing Board." << endl;
 	for (int i = 0; i < M; i++)
 		delete[] board[i];
 	delete[] board;

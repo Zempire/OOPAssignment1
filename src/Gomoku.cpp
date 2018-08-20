@@ -8,6 +8,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <ctime>
 #include "MKGame.h"
 
 using namespace std;

@@ -61,26 +61,18 @@ bool Computer::searchThreat(char ** board, int row, int col, string threat) {
 	int y[] = { -1, -1,  0,  1, 1, 1, 0, -1 };//left, left, same, right, right, right, same, left
 
 	//Randomly changes the direction in which we search.
-	for (int i = 0; i < 8; i++) {
-		srand(time(NULL));
-		int tempX, tempY;
-		int tempVal = rand()%8;
-		tempX = x[i];
-		tempY = y[i];
-		x[i] = x[tempVal];
-		y[i] = y[tempVal];
-		x[tempVal] = tempX;
-		y[tempVal] = tempY;
-	}
+//	for (int i = 0; i < 8; i++) {
+//		srand(time(NULL));
+//		int tempX, tempY;
+//		int tempVal = rand()%8;
+//		tempX = x[i];
+//		tempY = y[i];
+//		x[i] = x[tempVal];
+//		y[i] = y[tempVal];
+//		x[tempVal] = tempX;
+//		y[tempVal] = tempY;
+//	}
 
-//	for (int i = 0; i < 8; i++) {
-//		cout << x[i] << ", ";
-//	}
-//	cout << endl;
-//	for (int i = 0; i < 8; i++) {
-//		cout << y[i] << ", ";
-//	}
-//	cout << endl;
 	int length = threat.length();
 
 		if (board[row][col] != threat[0]) {
@@ -101,7 +93,8 @@ bool Computer::searchThreat(char ** board, int row, int col, string threat) {
             if (board[rowPos][colPos] != threat[count])
                 break; //Tests if the pattern is still possible
 
-            rowPos += x[direction], colPos += y[direction];
+            rowPos += x[direction];
+            colPos += y[direction];
         }
 
         if (count == length) {

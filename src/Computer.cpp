@@ -1,3 +1,4 @@
+
 /*
  * Computer.cpp
  *
@@ -20,20 +21,14 @@ Computer::Computer(const char sym, int boardSize) : Player(sym) {
 void Computer::setMove() {
 	cout <<"\n\n" << symbol <<"'s MOVE: ";
 	string * threatList;
-	string  threatX[] = {" XXXX", " OOOO", "  XXX ", "  OOO ", " X XX ", " O OO ", "  XXX", "  OOO", " XX", " OO", " X", " O"};
+	string  threatX[] = {" XXXX", " OOOO", "  XXX ", "  OOO ", " X XX ", " O OO ", "  XXX", "  OOO", " XX", "X X", " OO","O O", " X", " O"};
 
-	string  threatO[] = {" OOOO", " XXXX", "  OOO ", "  XXX ", " O OO ", " X XX ", "  OOO", "  XXX", " OO", " XX", " O", " X"};
-
-
-//						{" OOOO ", " OOOO", " XXXX",
-//						 " XXX ", "O OO", "X XX",
-//						 " OOO ", "  OOO", "  XXX",
-//						 " OOO", " XXX", " OO", " XX", " O", "X"};
+	string  threatO[] = {" OOOO", " XXXX", "  OOO ", "  XXX ", " O OO ", " X XX ", "  OOO", "  XXX", " OO", "O O", " XX", "X X", " O", " X"};
 
 	symbol == 'X' ? threatList = threatX : threatList = threatO;
 	cin.get();
 	int direction = rand()%2;
-	for (int i = 0; i < 12; i++) { // 12 is the length of threatList.
+	for (int i = 0; i < 14; i++) { // 14 is the length of threatList.
 		switch(direction) {
 		case 0:
 			for (int row = 0; row < moveSpace; row++)
@@ -59,19 +54,6 @@ bool Computer::searchThreat(char ** board, int row, int col, string threat) {
 	// Control arrays for testing all directions.
 	int x[] = {  0, -1, -1, -1, 0, 1, 1,  1 };//same, up, up, up, same, down, down, down
 	int y[] = { -1, -1,  0,  1, 1, 1, 0, -1 };//left, left, same, right, right, right, same, left
-
-	//Randomly changes the direction in which we search.
-//	for (int i = 0; i < 8; i++) {
-//		srand(time(NULL));
-//		int tempX, tempY;
-//		int tempVal = rand()%8;
-//		tempX = x[i];
-//		tempY = y[i];
-//		x[i] = x[tempVal];
-//		y[i] = y[tempVal];
-//		x[tempVal] = tempX;
-//		y[tempVal] = tempY;
-//	}
 
 	int length = threat.length();
 
@@ -105,6 +87,9 @@ bool Computer::searchThreat(char ** board, int row, int col, string threat) {
         		currentMove[0] = row + x[direction];
         		currentMove[1] = col + y[direction];
         	}else if (threat == "  XXX " || threat == "  OOO ") {
+        		currentMove[0] = row + x[direction];
+        		currentMove[1] = col + y[direction];
+        	}else if (threat == "X X" || threat == "O O") {
         		currentMove[0] = row + x[direction];
         		currentMove[1] = col + y[direction];
         	}else if (board[row][col] == ' ') {
